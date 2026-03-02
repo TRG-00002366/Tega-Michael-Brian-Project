@@ -34,17 +34,17 @@ NYC TLC wants to monitor taxi activity in near real time to understand:
     - Taxi trip events are produced continuously and consumed by Spark.
 3. Stream Processing (Pyspark)
     - Spark reads from Kafka, applies a schema, and runs a transformation pipeline:
-        a. Parse Kafka JSON payload into structured columns with the expected data types.
-        b. Data Quality Checks:
+        - Parse Kafka JSON payload into structured columns with the expected data types.
+        - Data Quality Checks:
             - Filter invalid records
             - Validate timestamps
-        c. Add derived fields used for analytics:
+        - Add derived fields used for analytics:
             - trip_duration_min
             - pickup_date, pickup_hour
             - tip_rate
             - fare_per_mile
             - trip_category(short, medium, long)
-        d. Analytics Aggregations
+        - Analytics Aggregations
             - compute streaming KPIs (e.g. Trip density and Trip type distribution)
 4. Storage (local Parquet data lake)
     - Bronze (raw), Silver (clean/enriched), Gold (aggregated KPIs)
