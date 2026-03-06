@@ -13,7 +13,6 @@ CHECKPOINT_PATH = "data/checkpoints/bronze"
 
 
 def build_spark() -> SparkSession:
-    # Spark needs the Kafka connector package.
     packages = "org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.8"
 
     spark = (
@@ -77,7 +76,7 @@ def main():
         .withColumn("pickup_date", to_date(col("pickup_ts")))
         .drop("pickup_ts")
     )
-
+    # Saves raw event to Bronze layer
     query = (
         bronze_df.writeStream
         .format("parquet")
