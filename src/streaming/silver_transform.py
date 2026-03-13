@@ -44,10 +44,6 @@ def main():
         .filter(col("fare_amount") > 0)
         .filter(col("trip_distance") > 0)
         .filter(col("dropoff_ts") > col("pickup_ts"))
-        .withColumn(
-            "trip_duration_min",
-            round((unix_timestamp("dropoff_ts") - unix_timestamp("pickup_ts")) / 60.0, 2)
-        )
     )
 
     silver_df.write.mode("overwrite").partitionBy("pickup_date").parquet(SILVER_PATH)
