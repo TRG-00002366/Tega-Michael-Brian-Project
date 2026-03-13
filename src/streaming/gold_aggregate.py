@@ -2,7 +2,6 @@ import os
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import (
     col,
-    to_timestamp,
     to_date,
     hour,
     when,
@@ -34,16 +33,13 @@ def build_spark() -> SparkSession:
 
 
 def main():
+    print("starting gold aggregation")
     spark = build_spark()
 
-    # Read curated Silver data
     silver_df = spark.read.parquet(SILVER_PATH)
 
-    # Standardize / derive columns in case Silver did not already include them
-    base_df = (
+    gold_base_df = (
         silver_df
-        .withColumn("pickup_ts", to_timestamp(col("pickup_datetime")))
-        .withColumn("dropoff_ts", to_timestamp(col("dropoff_datetime")))
         .withColumn("pickup_date", to_date(col("pickup_ts")))
         .withColumn("pickup_hour", hour(col("pickup_ts")))
         .withColumn(
@@ -61,43 +57,39 @@ def main():
             "fare_per_mile",
             when(col("trip_distance") > 0, col("fare_amount") / col("trip_distance")).otherwise(0.0)
         )
-        .filter(col("pickup_date").isNotNull())
     )
 
-    base_df.cache()
-
-    # 1) Hourly KPI table
+    # Hourly KPI table
     hourly_kpis_df = (
-        base_df
+        gold_base_df
         .groupBy("pickup_date", "pickup_hour")
         .agg(
             count("*").alias("total_trips"),
             round(sum("total_amount"), 2).alias("total_revenue"),
             round(avg("fare_amount"), 2).alias("avg_fare_amount"),
-            round(avg("tip_rate"), 4).alias("avg_tip_rate"),
+            round(avg("tip_amount"), 2).alias("avg_tip_amount"),
             round(avg("trip_distance"), 2).alias("avg_trip_distance"),
             round(avg("trip_duration_min"), 2).alias("avg_trip_duration_min")
         )
         .orderBy("pickup_date", "pickup_hour")
     )
 
-    # 2) Payment type KPI table
+    # Payment type KPI table
     payment_kpis_df = (
-        base_df
+        gold_base_df
         .groupBy("pickup_date", "payment_type")
         .agg(
             count("*").alias("total_trips"),
             round(sum("total_amount"), 2).alias("total_revenue"),
             round(avg("fare_amount"), 2).alias("avg_fare_amount"),
-            round(avg("tip_amount"), 2).alias("avg_tip_amount"),
             round(avg("tip_rate"), 4).alias("avg_tip_rate")
         )
         .orderBy("pickup_date", "payment_type")
     )
 
-    # 3) Vendor KPI table
+    # Vendor KPI table
     vendor_kpis_df = (
-        base_df
+        gold_base_df
         .groupBy("pickup_date", "vendor_id")
         .agg(
             count("*").alias("total_trips"),
@@ -109,34 +101,15 @@ def main():
         .orderBy("pickup_date", "vendor_id")
     )
 
-    # Write Gold tables as Parquet
-    (
-        hourly_kpis_df.write
-        .mode("overwrite")
-        .partitionBy("pickup_date")
-        .parquet(HOURLY_KPI_PATH)
-    )
+    hourly_kpis_df.write.mode("overwrite").partitionBy("pickup_date").parquet(HOURLY_KPI_PATH)
+    payment_kpis_df.write.mode("overwrite").partitionBy("pickup_date").parquet(PAYMENT_KPI_PATH)
+    vendor_kpis_df.write.mode("overwrite").partitionBy("pickup_date").parquet(VENDOR_KPI_PATH)
 
-    (
-        payment_kpis_df.write
-        .mode("overwrite")
-        .partitionBy("pickup_date")
-        .parquet(PAYMENT_KPI_PATH)
-    )
+    hourly_kpis_df.show(10, truncate=False)
+    payment_kpis_df.show(10, truncate=False)
+    vendor_kpis_df.show(10, truncate=False)
 
-    (
-        vendor_kpis_df.write
-        .mode("overwrite")
-        .partitionBy("pickup_date")
-        .parquet(VENDOR_KPI_PATH)
-    )
-
-    base_df.unpersist()
-
-    print("Gold aggregation completed successfully.")
-    print(f"Hourly KPIs written to: {HOURLY_KPI_PATH}")
-    print(f"Payment KPIs written to: {PAYMENT_KPI_PATH}")
-    print(f"Vendor KPIs written to: {VENDOR_KPI_PATH}")
+    print("gold aggregation finished")
 
 
 if __name__ == "__main__":
