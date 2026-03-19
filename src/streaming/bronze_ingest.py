@@ -15,13 +15,18 @@ CHECKPOINT_PATH = os.path.join(DATA_DIR, "checkpoints", "bronze")
 
 
 def build_spark() -> SparkSession:
+
+    packages = "org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.1"
+
     spark = (
         SparkSession.builder
         .appName("TaxiOps-Bronze-Ingest")
         .master("local[*]")
+        .config("spark.jars.packages", packages)
         .config("spark.sql.timestampFormat", "yyyy-MM-dd'T'HH:mm:ss[.SSSSSS]")
         .getOrCreate()
     )
+    
     spark.sparkContext.setLogLevel("WARN")
     return spark
 
