@@ -9,19 +9,16 @@ import argparse
 TOPIC = "nyc_taxi_trips"
 BOOTSTRAP_SERVERS = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
 
-BRONZE_PATH = "data/bronze"
-CHECKPOINT_PATH = "data/checkpoints/bronze"
-
+DATA_DIR = os.getenv("DATA_DIR", "/opt/airflow/data")
+BRONZE_PATH = os.path.join(DATA_DIR, "bronze")
+CHECKPOINT_PATH = os.path.join(DATA_DIR, "checkpoints", "bronze")
 
 
 def build_spark() -> SparkSession:
-    packages = "org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.1"
-
     spark = (
         SparkSession.builder
         .appName("TaxiOps-Bronze-Ingest")
         .master("local[*]")
-        .config("spark.jars.packages", packages)
         .config("spark.sql.timestampFormat", "yyyy-MM-dd'T'HH:mm:ss[.SSSSSS]")
         .getOrCreate()
     )

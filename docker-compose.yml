@@ -34,27 +34,44 @@ services:
     depends_on:
       - postgres
       - kafka
+      - airflow-init
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__WEBSERVER__SECRET_KEY: "supersecretkey123"
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "False"
     volumes:
       - ./:/app
-      - ./dags:/opt/airflow/dags
+      - ./airflow/dags:/opt/airflow/dags
     ports:
       - "8080:8080"
-    command: webserver
+    command: airflow webserver
 
   airflow-scheduler:
     build: .
     depends_on:
       - postgres
       - kafka
+      - airflow-init
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__WEBSERVER__SECRET_KEY: "supersecretkey123"
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "False"
     volumes:
       - ./:/app
-      - ./dags:/opt/airflow/dags
-    command: scheduler
+      - ./airflow/dags:/opt/airflow/dags
+    command: airflow scheduler
+
+  airflow-init:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__WEBSERVER__SECRET_KEY: "supersecretkey123"
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+    volumes:
+      - ./:/app
+      - ./airflow/dags:/opt/airflow/dags
+    command: airflow db migrate

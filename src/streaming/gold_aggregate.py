@@ -1,24 +1,14 @@
 import os
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import (
-    col,
-    to_date,
-    hour,
-    when,
-    round,
-    unix_timestamp,
-    count,
-    sum,
-    avg,
-    max
-)
+from pyspark.sql.functions import col, to_date, hour, when, round, unix_timestamp, count, sum, avg, max
 
-SILVER_PATH = "data/silver"
-GOLD_PATH = "data/gold"
+DATA_DIR = os.getenv("DATA_DIR", "/opt/airflow/data")
+SILVER_PATH = os.path.join(DATA_DIR, "silver")
+GOLD_PATH = os.path.join(DATA_DIR, "gold")
 
-HOURLY_KPI_PATH = f"{GOLD_PATH}/hourly_kpis"
-PAYMENT_KPI_PATH = f"{GOLD_PATH}/payment_kpis"
-VENDOR_KPI_PATH = f"{GOLD_PATH}/vendor_kpis"
+HOURLY_KPI_PATH = os.path.join(GOLD_PATH, "hourly_kpis")
+PAYMENT_KPI_PATH = os.path.join(GOLD_PATH, "payment_kpis")
+VENDOR_KPI_PATH = os.path.join(GOLD_PATH, "vendor_kpis")
 
 
 def build_spark() -> SparkSession:

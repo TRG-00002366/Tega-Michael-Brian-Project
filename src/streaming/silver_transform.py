@@ -1,24 +1,10 @@
 import os
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import (
-    col,
-    to_timestamp,
-    to_date,
-    hour,
-    when,
-    round,
-    unix_timestamp,
-    count,
-    sum,
-    avg,
-    max
-)
-from pyspark.sql.types import (
-    StructType, StructField, StringType, IntegerType, DoubleType
-)
+from pyspark.sql.functions import col, to_timestamp
 
-BRONZE_PATH = "data/bronze"
-SILVER_PATH = "data/silver"
+DATA_DIR = os.getenv("DATA_DIR", "/opt/airflow/data")
+BRONZE_PATH = os.path.join(DATA_DIR, "bronze")
+SILVER_PATH = os.path.join(DATA_DIR, "silver")
 
 def build_spark() -> SparkSession:
     spark = (
