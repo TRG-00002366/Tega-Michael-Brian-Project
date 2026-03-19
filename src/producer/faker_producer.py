@@ -6,10 +6,12 @@ import argparse
 from datetime import datetime, timedelta, UTC
 from faker import Faker
 from kafka import KafkaProducer
+import os
 
 
 fake = Faker()
 TOPIC = "nyc_taxi_trips"
+BOOTSTRAP_SERVERS = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
 
 
 def generate_trip():
@@ -64,7 +66,7 @@ def main():
     args = parser.parse_args()
 
     producer = KafkaProducer(
-        bootstrap_servers="localhost:9092",
+        bootstrap_servers=BOOTSTRAP_SERVERS,
         value_serializer=lambda v: json.dumps(v).encode("utf-8")
     )
 

@@ -4,12 +4,14 @@ from pyspark.sql.functions import col, from_json, to_timestamp, to_date
 from pyspark.sql.types import (
     StructType, StructField, StringType, IntegerType, DoubleType
 )
+import argparse
 
 TOPIC = "nyc_taxi_trips"
-BOOTSTRAP_SERVERS = "localhost:9092"
+BOOTSTRAP_SERVERS = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
 
 BRONZE_PATH = "data/bronze"
 CHECKPOINT_PATH = "data/checkpoints/bronze"
+
 
 
 def build_spark() -> SparkSession:
@@ -28,6 +30,11 @@ def build_spark() -> SparkSession:
 
 
 def main():
+
+    parser = argparse.ArgumentParser(description="Bronze ingest from Kafka to Parquet")
+    parser.add_argument("--run-seconds", type=int, default=90, help="How long to keep the streaming query alive")
+    args = parser.parse_args()
+
     spark = build_spark()
 
     # Schema expected inside the Kafka JSON payload
@@ -61,7 +68,7 @@ def main():
         .format("kafka")
         .option("kafka.bootstrap.servers", BOOTSTRAP_SERVERS)
         .option("subscribe", TOPIC)
-        .option("startingOffsets", "latest")
+        .option("startingOffsets", "earliest")
         .option("maxOffsetsPerTrigger", 500)
         .load()
     )
@@ -89,7 +96,12 @@ def main():
         .start()
     )
 
-    query.awaitTermination()
+    try:
+        query.awaitTermination(args.run_seconds)
+    finally:
+        if query.isActive:
+            query.stop()
+        spark.stop()
 
 
 if __name__ == "__main__":
