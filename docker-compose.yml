@@ -16,8 +16,10 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092,PLAINTEXT_HOST://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
   postgres:
@@ -40,9 +42,11 @@ services:
       AIRFLOW__WEBSERVER__SECRET_KEY: "supersecretkey123"
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
     volumes:
       - ./:/app
       - ./airflow/dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
     ports:
       - "8080:8080"
     command: airflow webserver
@@ -58,9 +62,11 @@ services:
       AIRFLOW__WEBSERVER__SECRET_KEY: "supersecretkey123"
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
     volumes:
       - ./:/app
       - ./airflow/dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
     command: airflow scheduler
 
   airflow-init:
@@ -71,7 +77,9 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__WEBSERVER__SECRET_KEY: "supersecretkey123"
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
     volumes:
       - ./:/app
       - ./airflow/dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
     command: airflow db migrate

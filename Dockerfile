@@ -17,4 +17,5 @@ USER airflow
 RUN pip install --no-cache-dir \
     pyspark==3.5.1 \
     kafka-python \
-    psycopg2-binary
+    psycopg2-binary \
+    faker
