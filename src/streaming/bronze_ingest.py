@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, from_json, to_timestamp, to_date
 from pyspark.sql.types import (
@@ -9,14 +10,16 @@ import argparse
 TOPIC = "nyc_taxi_trips"
 BOOTSTRAP_SERVERS = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
 
-DATA_DIR = os.getenv("DATA_DIR", "/opt/airflow/data")
-BRONZE_PATH = os.path.join(DATA_DIR, "bronze")
-CHECKPOINT_PATH = os.path.join(DATA_DIR, "checkpoints", "bronze")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_DATA_DIR = PROJECT_ROOT / "data"
 
+DATA_DIR = Path(os.getenv("DATA_DIR", str(DEFAULT_DATA_DIR)))
+BRONZE_PATH = DATA_DIR / "bronze"
+CHECKPOINT_PATH = DATA_DIR / "checkpoints" / "bronze"
 
 def build_spark() -> SparkSession:
 
-    packages = "org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.1"
+    packages = "org.apache.spark:spark-sql-kafka-0-10_2.12:4.1.1"
 
     spark = (
         SparkSession.builder
@@ -71,7 +74,6 @@ def main():
         .option("kafka.bootstrap.servers", BOOTSTRAP_SERVERS)
         .option("subscribe", TOPIC)
         .option("startingOffsets", "earliest")
-        .option("maxOffsetsPerTrigger", 500)
         .load()
     )
 

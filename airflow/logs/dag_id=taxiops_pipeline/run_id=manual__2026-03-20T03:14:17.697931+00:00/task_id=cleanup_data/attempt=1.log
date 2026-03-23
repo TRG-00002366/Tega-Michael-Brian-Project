@@ -1,0 +1,20 @@
+[2026-03-20T03:14:20.550+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-03-20T03:14:20.641+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: taxiops_pipeline.cleanup_data manual__2026-03-20T03:14:17.697931+00:00 [queued]>
+[2026-03-20T03:14:20.652+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: taxiops_pipeline.cleanup_data manual__2026-03-20T03:14:17.697931+00:00 [queued]>
+[2026-03-20T03:14:20.653+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-03-20T03:14:20.675+0000] {taskinstance.py:2330} INFO - Executing <Task(BashOperator): cleanup_data> on 2026-03-20 03:14:17.697931+00:00
+[2026-03-20T03:14:20.684+0000] {standard_task_runner.py:63} INFO - Started process 187 to run task
+[2026-03-20T03:14:20.688+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'taxiops_pipeline', 'cleanup_data', 'manual__2026-03-20T03:14:17.697931+00:00', '--job-id', '47', '--raw', '--subdir', 'DAGS_FOLDER/taxiops_dag.py', '--cfg-path', '/tmp/tmpfri1t607']
+[2026-03-20T03:14:20.692+0000] {standard_task_runner.py:91} INFO - Job 47: Subtask cleanup_data
+[2026-03-20T03:14:20.795+0000] {task_command.py:426} INFO - Running <TaskInstance: taxiops_pipeline.cleanup_data manual__2026-03-20T03:14:17.697931+00:00 [running]> on host 7d088cdb0451
+[2026-03-20T03:14:21.745+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='team' AIRFLOW_CTX_DAG_ID='taxiops_pipeline' AIRFLOW_CTX_TASK_ID='cleanup_data' AIRFLOW_CTX_EXECUTION_DATE='2026-03-20T03:14:17.697931+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-20T03:14:17.697931+00:00'
+[2026-03-20T03:14:21.747+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-03-20T03:14:22.756+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-03-20T03:14:22.758+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'rm -rf /opt/pipeline/data/bronze /opt/pipeline/data/silver /opt/pipeline/data/gold /opt/pipeline/data/checkpoints']
+[2026-03-20T03:14:22.778+0000] {subprocess.py:86} INFO - Output:
+[2026-03-20T03:14:22.817+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2026-03-20T03:14:22.819+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-03-20T03:14:22.857+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=taxiops_pipeline, task_id=cleanup_data, run_id=manual__2026-03-20T03:14:17.697931+00:00, execution_date=20260320T031417, start_date=20260320T031420, end_date=20260320T031422
+[2026-03-20T03:14:22.895+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2026-03-20T03:14:22.927+0000] {taskinstance.py:3498} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-03-20T03:14:22.934+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

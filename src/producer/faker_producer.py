@@ -3,7 +3,7 @@ import uuid
 import random
 import time
 import argparse
-from datetime import datetime, timedelta, UTC
+from datetime import datetime, timedelta, timezone
 from faker import Faker
 from kafka import KafkaProducer
 import os
@@ -55,7 +55,7 @@ def generate_trip():
         "congestion_surcharge": congestion_surcharge,
         "airport_fee": 0.0,
         "total_amount": total_amount,
-        "event_timestamp": datetime.now(UTC).isoformat()
+        "event_timestamp": datetime.now(timezone.utc).isoformat()
     }
 
 
