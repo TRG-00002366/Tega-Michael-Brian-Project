@@ -22,7 +22,6 @@ def build_spark() -> SparkSession:
         SparkSession.builder
         .appName("TaxiOps-Bronze-Ingest")
         .master("local[*]")
-        .config("spark.jars.packages", packages)
         .config("spark.sql.timestampFormat", "yyyy-MM-dd'T'HH:mm:ss[.SSSSSS]")
         .getOrCreate()
     )
@@ -94,7 +93,7 @@ def main():
         .option("path", BRONZE_PATH)
         .option("checkpointLocation", CHECKPOINT_PATH)
         .partitionBy("pickup_date")
-        .trigger(processingTime="1 minute")
+        .trigger(processingTime="10 seconds")
         .start()
     )
 
@@ -107,6 +106,4 @@ def main():
 
 
 if __name__ == "__main__":
-    os.makedirs(BRONZE_PATH, exist_ok=True)
-    os.makedirs(CHECKPOINT_PATH, exist_ok=True)
     main()

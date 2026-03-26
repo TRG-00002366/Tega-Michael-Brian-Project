@@ -103,8 +103,4 @@ def main():
 
 
 if __name__ == "__main__":
-    os.makedirs(GOLD_PATH, exist_ok=True)
-    os.makedirs(HOURLY_KPI_PATH, exist_ok=True)
-    os.makedirs(PAYMENT_KPI_PATH, exist_ok=True)
-    os.makedirs(VENDOR_KPI_PATH, exist_ok=True)
     main()

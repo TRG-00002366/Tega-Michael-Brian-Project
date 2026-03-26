@@ -41,5 +41,4 @@ def main():
 
 
 if __name__ == "__main__":
-    os.makedirs(SILVER_PATH, exist_ok=True)
     main()
