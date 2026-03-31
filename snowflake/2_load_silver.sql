@@ -1,0 +1,9 @@
+!set variable_substitution=true;
+PUT 'file:///home/hiron/Tega-Michael-Brian-Project/data/silver/*/*.parquet'
+  @TAXIOPS_DB.RAW.TAXI_SILVER_STAGE
+  AUTO_COMPRESS=FALSE
+  OVERWRITE=TRUE;
+
+COPY INTO TAXIOPS_DB.RAW.TAXI_TRIPS_SILVER
+FROM @TAXIOPS_DB.RAW.TAXI_SILVER_STAGE
+MATCH_BY_COLUMN_NAME = CASE_INSENSITIVE;
