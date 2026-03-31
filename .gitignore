@@ -6,3 +6,13 @@ data/gold
 data/bronze
 data/silver
 .vscode
+airflow/logs/
+airflow/dags/__pycache__/
+dbt_taxiops/logs/
+snowflake/logs/
+logs/
+data/bronze/
+data/silver/
+data/gold/
+data/checkpoints/
+*.pyc
