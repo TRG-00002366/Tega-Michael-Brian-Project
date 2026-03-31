@@ -57,6 +57,8 @@ services:
       - postgres
       - kafka
       - airflow-init
+    ports:
+      - "4040:4040"
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__WEBSERVER__SECRET_KEY: "supersecretkey123"
