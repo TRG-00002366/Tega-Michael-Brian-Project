@@ -1201,3 +1201,241 @@ Runtime Error
 [0m16:44:07.423026 [debug] [MainThread]: Command `dbt clean` succeeded at 16:44:07.422849 after 0.14 seconds
 [0m16:44:07.423510 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7e0f57117c20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7e0f57d7b530>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7e0f5750cf50>]}
 [0m16:44:07.423972 [debug] [MainThread]: Flushing usage events
+[0m15:31:55.623384 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275df797800>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275df795a00>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275df795d00>]}
+
+
+============================== 15:31:55.633951 | 392876c7-75f1-46d0-bb1c-06136e9856d1 ==============================
+[0m15:31:55.633951 [info ] [MainThread]: Running with dbt=1.7.19
+[0m15:31:55.634810 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'version_check': 'True', 'fail_fast': 'False', 'log_path': '/home/hiron/Tega-Michael-Brian-Project/dbt_taxiops/logs', 'debug': 'False', 'profiles_dir': '/home/hiron/.dbt', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'invocation_command': 'dbt run --select stg_taxi_trips_silver hourly_kpis payment_kpis vendor_kpis', 'introspect': 'True', 'log_format': 'default', 'target_path': 'None', 'static_parser': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m15:31:56.673490 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '392876c7-75f1-46d0-bb1c-06136e9856d1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275de1ff6e0>]}
+[0m15:31:56.730836 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '392876c7-75f1-46d0-bb1c-06136e9856d1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275de0af5f0>]}
+[0m15:31:56.732742 [info ] [MainThread]: Registered adapter: snowflake=1.7.5
+[0m15:31:56.745009 [debug] [MainThread]: checksum: a8d43cdff37d0f32d7fbe4c5c25bea4bb6c86e162f8ce8fdb1a38cdcf7495431, vars: {}, profile: , target: , version: 1.7.19
+[0m15:31:56.746584 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m15:31:56.747267 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '392876c7-75f1-46d0-bb1c-06136e9856d1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275e0020dd0>]}
+[0m15:31:58.079132 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '392876c7-75f1-46d0-bb1c-06136e9856d1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275dde229f0>]}
+[0m15:31:58.095792 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '392876c7-75f1-46d0-bb1c-06136e9856d1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275a7930c20>]}
+[0m15:31:58.096575 [info ] [MainThread]: Found 4 models, 15 tests, 1 source, 0 exposures, 0 metrics, 431 macros, 0 groups, 0 semantic models
+[0m15:31:58.097070 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '392876c7-75f1-46d0-bb1c-06136e9856d1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275a7af8e60>]}
+[0m15:31:58.099304 [info ] [MainThread]: 
+[0m15:31:58.100442 [debug] [MainThread]: Acquiring new snowflake connection 'master'
+[0m15:31:58.102787 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_TAXIOPS_DB'
+[0m15:31:58.110087 [debug] [ThreadPool]: Acquiring new snowflake connection 'list_TAXIOPS_DB'
+[0m15:31:58.123873 [debug] [ThreadPool]: Using snowflake connection "list_TAXIOPS_DB"
+[0m15:31:58.124793 [debug] [ThreadPool]: Using snowflake connection "list_TAXIOPS_DB"
+[0m15:31:58.125923 [debug] [ThreadPool]: On list_TAXIOPS_DB: /* {"app": "dbt", "dbt_version": "1.7.19", "profile_name": "dbt_taxiops", "target_name": "dev", "connection_name": "list_TAXIOPS_DB"} */
+show terse schemas in database TAXIOPS_DB
+    limit 10000
+[0m15:31:58.126795 [debug] [ThreadPool]: On list_TAXIOPS_DB: /* {"app": "dbt", "dbt_version": "1.7.19", "profile_name": "dbt_taxiops", "target_name": "dev", "connection_name": "list_TAXIOPS_DB"} */
+show terse schemas in database TAXIOPS_DB
+    limit 10000
+[0m15:31:58.127509 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m15:31:58.128065 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m15:32:02.816184 [debug] [ThreadPool]: SQL status: SUCCESS 3 in 5.0 seconds
+[0m15:32:02.818173 [debug] [ThreadPool]: On list_TAXIOPS_DB: Close
+[0m15:32:02.863372 [debug] [ThreadPool]: SQL status: SUCCESS 3 in 5.0 seconds
+[0m15:32:02.864877 [debug] [ThreadPool]: On list_TAXIOPS_DB: Close
+[0m15:32:02.995176 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_TAXIOPS_DB, now create_TAXIOPS_DB_PUBLIC_STAGING)
+[0m15:32:02.996221 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_TAXIOPS_DB, now create_TAXIOPS_DB_PUBLIC_GOLD)
+[0m15:32:02.998245 [debug] [ThreadPool]: Creating schema "database: "TAXIOPS_DB"
+schema: "PUBLIC_STAGING"
+"
+[0m15:32:02.999605 [debug] [ThreadPool]: Creating schema "database: "TAXIOPS_DB"
+schema: "PUBLIC_GOLD"
+"
+[0m15:32:03.006980 [debug] [ThreadPool]: Using snowflake connection "create_TAXIOPS_DB_PUBLIC_STAGING"
+[0m15:32:03.011654 [debug] [ThreadPool]: Using snowflake connection "create_TAXIOPS_DB_PUBLIC_GOLD"
+[0m15:32:03.012654 [debug] [ThreadPool]: On create_TAXIOPS_DB_PUBLIC_STAGING: /* {"app": "dbt", "dbt_version": "1.7.19", "profile_name": "dbt_taxiops", "target_name": "dev", "connection_name": "create_TAXIOPS_DB_PUBLIC_STAGING"} */
+create schema if not exists TAXIOPS_DB.PUBLIC_STAGING
+[0m15:32:03.013380 [debug] [ThreadPool]: On create_TAXIOPS_DB_PUBLIC_GOLD: /* {"app": "dbt", "dbt_version": "1.7.19", "profile_name": "dbt_taxiops", "target_name": "dev", "connection_name": "create_TAXIOPS_DB_PUBLIC_GOLD"} */
+create schema if not exists TAXIOPS_DB.PUBLIC_GOLD
+[0m15:32:03.013981 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m15:32:03.014520 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m15:32:06.245574 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 3.0 seconds
+[0m15:32:06.246981 [debug] [ThreadPool]: On create_TAXIOPS_DB_PUBLIC_STAGING: Close
+[0m15:32:06.318572 [debug] [ThreadPool]: SQL status: SUCCESS 1 in 3.0 seconds
+[0m15:32:06.319857 [debug] [ThreadPool]: On create_TAXIOPS_DB_PUBLIC_GOLD: Close
+[0m15:32:06.672003 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly create_TAXIOPS_DB_PUBLIC_GOLD, now list_TAXIOPS_DB_PUBLIC_STAGING)
+[0m15:32:06.678972 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly create_TAXIOPS_DB_PUBLIC_STAGING, now list_TAXIOPS_DB_PUBLIC_GOLD)
+[0m15:32:06.683657 [debug] [ThreadPool]: Using snowflake connection "list_TAXIOPS_DB_PUBLIC_STAGING"
+[0m15:32:06.686651 [debug] [ThreadPool]: Using snowflake connection "list_TAXIOPS_DB_PUBLIC_GOLD"
+[0m15:32:06.687821 [debug] [ThreadPool]: On list_TAXIOPS_DB_PUBLIC_STAGING: /* {"app": "dbt", "dbt_version": "1.7.19", "profile_name": "dbt_taxiops", "target_name": "dev", "connection_name": "list_TAXIOPS_DB_PUBLIC_STAGING"} */
+show objects in TAXIOPS_DB.PUBLIC_STAGING limit 10000
+[0m15:32:06.688870 [debug] [ThreadPool]: On list_TAXIOPS_DB_PUBLIC_GOLD: /* {"app": "dbt", "dbt_version": "1.7.19", "profile_name": "dbt_taxiops", "target_name": "dev", "connection_name": "list_TAXIOPS_DB_PUBLIC_GOLD"} */
+show objects in TAXIOPS_DB.PUBLIC_GOLD limit 10000
+[0m15:32:06.689840 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m15:32:06.690708 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m15:32:09.174145 [debug] [ThreadPool]: SQL status: SUCCESS 0 in 2.0 seconds
+[0m15:32:09.175774 [debug] [ThreadPool]: On list_TAXIOPS_DB_PUBLIC_GOLD: Close
+[0m15:32:09.970682 [debug] [ThreadPool]: SQL status: SUCCESS 0 in 3.0 seconds
+[0m15:32:09.973380 [debug] [ThreadPool]: On list_TAXIOPS_DB_PUBLIC_STAGING: Close
+[0m15:32:10.057277 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '392876c7-75f1-46d0-bb1c-06136e9856d1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x72757fe08b60>]}
+[0m15:32:10.058905 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m15:32:10.059829 [info ] [MainThread]: 
+[0m15:32:10.066385 [debug] [Thread-1 (]: Began running node model.dbt_taxiops.stg_taxi_trips_silver
+[0m15:32:10.067171 [info ] [Thread-1 (]: 1 of 4 START sql view model PUBLIC_STAGING.stg_taxi_trips_silver ............... [RUN]
+[0m15:32:10.068115 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_TAXIOPS_DB_PUBLIC_STAGING, now model.dbt_taxiops.stg_taxi_trips_silver)
+[0m15:32:10.068713 [debug] [Thread-1 (]: Began compiling node model.dbt_taxiops.stg_taxi_trips_silver
+[0m15:32:10.078468 [debug] [Thread-1 (]: Writing injected SQL for node "model.dbt_taxiops.stg_taxi_trips_silver"
+[0m15:32:10.082928 [debug] [Thread-1 (]: Timing info for model.dbt_taxiops.stg_taxi_trips_silver (compile): 15:32:10.069183 => 15:32:10.082499
+[0m15:32:10.083488 [debug] [Thread-1 (]: Began executing node model.dbt_taxiops.stg_taxi_trips_silver
+[0m15:32:10.120686 [debug] [Thread-1 (]: Writing runtime sql for node "model.dbt_taxiops.stg_taxi_trips_silver"
+[0m15:32:10.124905 [debug] [Thread-1 (]: Using snowflake connection "model.dbt_taxiops.stg_taxi_trips_silver"
+[0m15:32:10.125659 [debug] [Thread-1 (]: On model.dbt_taxiops.stg_taxi_trips_silver: /* {"app": "dbt", "dbt_version": "1.7.19", "profile_name": "dbt_taxiops", "target_name": "dev", "node_id": "model.dbt_taxiops.stg_taxi_trips_silver"} */
+create or replace   view TAXIOPS_DB.PUBLIC_STAGING.stg_taxi_trips_silver
+  
+   as (
+    
+
+select
+    vendor_id,
+    payment_type,
+    pickup_ts,
+    dropoff_ts,
+    total_amount,
+    fare_amount,
+    tip_amount,
+    trip_distance,
+    passenger_count,
+    pickup_location_id,
+    dropoff_location_id,
+
+    cast(pickup_ts as date) as pickup_date,
+    date_part('hour', pickup_ts) as pickup_hour,
+
+    round(datediff('second', pickup_ts, dropoff_ts) / 60.0, 2) as trip_duration_min,
+
+    case
+        when fare_amount > 0 then tip_amount / fare_amount
+        else 0.0
+    end as tip_rate,
+
+    case
+        when trip_distance > 0 then fare_amount / trip_distance
+        else 0.0
+    end as fare_per_mile
+
+from TAXIOPS_DB.RAW.taxi_trips_silver
+  );
+[0m15:32:10.126453 [debug] [Thread-1 (]: Opening a new connection, currently in state closed
+[0m15:32:12.878358 [debug] [Thread-1 (]: SQL status: SUCCESS 1 in 3.0 seconds
+[0m15:32:12.899769 [debug] [Thread-1 (]: Timing info for model.dbt_taxiops.stg_taxi_trips_silver (execute): 15:32:10.083811 => 15:32:12.899501
+[0m15:32:12.900440 [debug] [Thread-1 (]: On model.dbt_taxiops.stg_taxi_trips_silver: Close
+[0m15:32:12.979690 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '392876c7-75f1-46d0-bb1c-06136e9856d1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275a4745be0>]}
+[0m15:32:12.980497 [info ] [Thread-1 (]: 1 of 4 OK created sql view model PUBLIC_STAGING.stg_taxi_trips_silver .......... [[32mSUCCESS 1[0m in 2.91s]
+[0m15:32:12.981343 [debug] [Thread-1 (]: Finished running node model.dbt_taxiops.stg_taxi_trips_silver
+[0m15:32:12.983542 [debug] [Thread-3 (]: Began running node model.dbt_taxiops.hourly_kpis
+[0m15:32:12.984899 [debug] [Thread-4 (]: Began running node model.dbt_taxiops.payment_kpis
+[0m15:32:12.987115 [debug] [Thread-2 (]: Began running node model.dbt_taxiops.vendor_kpis
+[0m15:32:12.986201 [info ] [Thread-3 (]: 2 of 4 START sql table model PUBLIC_GOLD.hourly_kpis ........................... [RUN]
+[0m15:32:12.988629 [info ] [Thread-4 (]: 3 of 4 START sql table model PUBLIC_GOLD.payment_kpis .......................... [RUN]
+[0m15:32:12.989866 [info ] [Thread-2 (]: 4 of 4 START sql table model PUBLIC_GOLD.vendor_kpis ........................... [RUN]
+[0m15:32:12.991495 [debug] [Thread-3 (]: Acquiring new snowflake connection 'model.dbt_taxiops.hourly_kpis'
+[0m15:32:12.992961 [debug] [Thread-4 (]: Acquiring new snowflake connection 'model.dbt_taxiops.payment_kpis'
+[0m15:32:12.994092 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly list_TAXIOPS_DB_PUBLIC_GOLD, now model.dbt_taxiops.vendor_kpis)
+[0m15:32:12.994864 [debug] [Thread-3 (]: Began compiling node model.dbt_taxiops.hourly_kpis
+[0m15:32:12.995737 [debug] [Thread-4 (]: Began compiling node model.dbt_taxiops.payment_kpis
+[0m15:32:12.996437 [debug] [Thread-2 (]: Began compiling node model.dbt_taxiops.vendor_kpis
+[0m15:32:13.000708 [debug] [Thread-3 (]: Writing injected SQL for node "model.dbt_taxiops.hourly_kpis"
+[0m15:32:13.004563 [debug] [Thread-4 (]: Writing injected SQL for node "model.dbt_taxiops.payment_kpis"
+[0m15:32:13.008662 [debug] [Thread-2 (]: Writing injected SQL for node "model.dbt_taxiops.vendor_kpis"
+[0m15:32:13.011270 [debug] [Thread-3 (]: Timing info for model.dbt_taxiops.hourly_kpis (compile): 15:32:12.997017 => 15:32:13.010849
+[0m15:32:13.012357 [debug] [Thread-3 (]: Began executing node model.dbt_taxiops.hourly_kpis
+[0m15:32:13.013614 [debug] [Thread-4 (]: Timing info for model.dbt_taxiops.payment_kpis (compile): 15:32:13.001503 => 15:32:13.013265
+[0m15:32:13.036365 [debug] [Thread-2 (]: Timing info for model.dbt_taxiops.vendor_kpis (compile): 15:32:13.005465 => 15:32:13.035979
+[0m15:32:13.039421 [debug] [Thread-3 (]: Writing runtime sql for node "model.dbt_taxiops.hourly_kpis"
+[0m15:32:13.040169 [debug] [Thread-4 (]: Began executing node model.dbt_taxiops.payment_kpis
+[0m15:32:13.041514 [debug] [Thread-2 (]: Began executing node model.dbt_taxiops.vendor_kpis
+[0m15:32:13.046467 [debug] [Thread-4 (]: Writing runtime sql for node "model.dbt_taxiops.payment_kpis"
+[0m15:32:13.049506 [debug] [Thread-2 (]: Writing runtime sql for node "model.dbt_taxiops.vendor_kpis"
+[0m15:32:13.051761 [debug] [Thread-3 (]: Using snowflake connection "model.dbt_taxiops.hourly_kpis"
+[0m15:32:13.054091 [debug] [Thread-4 (]: Using snowflake connection "model.dbt_taxiops.payment_kpis"
+[0m15:32:13.055735 [debug] [Thread-3 (]: On model.dbt_taxiops.hourly_kpis: /* {"app": "dbt", "dbt_version": "1.7.19", "profile_name": "dbt_taxiops", "target_name": "dev", "node_id": "model.dbt_taxiops.hourly_kpis"} */
+create or replace transient table TAXIOPS_DB.PUBLIC_GOLD.hourly_kpis
+         as
+        (
+
+select
+    pickup_date,
+    pickup_hour,
+    count(*) as total_trips,
+    round(sum(total_amount), 2) as total_revenue,
+    round(avg(fare_amount), 2) as avg_fare_amount,
+    round(avg(tip_amount), 2) as avg_tip_amount,
+    round(avg(trip_distance), 2) as avg_trip_distance,
+    round(avg(trip_duration_min), 2) as avg_trip_duration_min
+from TAXIOPS_DB.PUBLIC_STAGING.stg_taxi_trips_silver
+group by pickup_date, pickup_hour
+order by pickup_date, pickup_hour
+        );
+[0m15:32:13.056660 [debug] [Thread-4 (]: On model.dbt_taxiops.payment_kpis: /* {"app": "dbt", "dbt_version": "1.7.19", "profile_name": "dbt_taxiops", "target_name": "dev", "node_id": "model.dbt_taxiops.payment_kpis"} */
+create or replace transient table TAXIOPS_DB.PUBLIC_GOLD.payment_kpis
+         as
+        (
+
+select
+    pickup_date,
+    payment_type,
+    count(*) as total_trips,
+    round(sum(total_amount), 2) as total_revenue,
+    round(avg(fare_amount), 2) as avg_fare_amount,
+    round(avg(tip_rate), 4) as avg_tip_rate
+from TAXIOPS_DB.PUBLIC_STAGING.stg_taxi_trips_silver
+group by pickup_date, payment_type
+order by pickup_date, payment_type
+        );
+[0m15:32:13.057908 [debug] [Thread-2 (]: Using snowflake connection "model.dbt_taxiops.vendor_kpis"
+[0m15:32:13.058730 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m15:32:13.059679 [debug] [Thread-4 (]: Opening a new connection, currently in state init
+[0m15:32:13.060911 [debug] [Thread-2 (]: On model.dbt_taxiops.vendor_kpis: /* {"app": "dbt", "dbt_version": "1.7.19", "profile_name": "dbt_taxiops", "target_name": "dev", "node_id": "model.dbt_taxiops.vendor_kpis"} */
+create or replace transient table TAXIOPS_DB.PUBLIC_GOLD.vendor_kpis
+         as
+        (
+
+select
+    pickup_date,
+    vendor_id,
+    count(*) as total_trips,
+    round(sum(total_amount), 2) as total_revenue,
+    round(avg(trip_distance), 2) as avg_trip_distance,
+    round(avg(fare_per_mile), 2) as avg_fare_per_mile,
+    round(max(total_amount), 2) as max_trip_total
+from TAXIOPS_DB.PUBLIC_STAGING.stg_taxi_trips_silver
+group by pickup_date, vendor_id
+order by pickup_date, vendor_id
+        );
+[0m15:32:13.096695 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m15:32:15.058828 [debug] [Thread-4 (]: SQL status: SUCCESS 1 in 2.0 seconds
+[0m15:32:15.063296 [debug] [Thread-4 (]: Timing info for model.dbt_taxiops.payment_kpis (execute): 15:32:13.043163 => 15:32:15.062879
+[0m15:32:15.063944 [debug] [Thread-4 (]: On model.dbt_taxiops.payment_kpis: Close
+[0m15:32:15.146256 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '392876c7-75f1-46d0-bb1c-06136e9856d1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275a7b52540>]}
+[0m15:32:15.147443 [info ] [Thread-4 (]: 3 of 4 OK created sql table model PUBLIC_GOLD.payment_kpis ..................... [[32mSUCCESS 1[0m in 2.15s]
+[0m15:32:15.148601 [debug] [Thread-4 (]: Finished running node model.dbt_taxiops.payment_kpis
+[0m15:32:15.571034 [debug] [Thread-2 (]: SQL status: SUCCESS 1 in 2.0 seconds
+[0m15:32:15.573961 [debug] [Thread-2 (]: Timing info for model.dbt_taxiops.vendor_kpis (execute): 15:32:13.047113 => 15:32:15.573633
+[0m15:32:15.574649 [debug] [Thread-2 (]: On model.dbt_taxiops.vendor_kpis: Close
+[0m15:32:15.655968 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '392876c7-75f1-46d0-bb1c-06136e9856d1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275a7af5a30>]}
+[0m15:32:15.656990 [info ] [Thread-2 (]: 4 of 4 OK created sql table model PUBLIC_GOLD.vendor_kpis ...................... [[32mSUCCESS 1[0m in 2.66s]
+[0m15:32:15.658840 [debug] [Thread-2 (]: Finished running node model.dbt_taxiops.vendor_kpis
+[0m15:32:15.660231 [debug] [Thread-3 (]: SQL status: SUCCESS 1 in 3.0 seconds
+[0m15:32:15.663217 [debug] [Thread-3 (]: Timing info for model.dbt_taxiops.hourly_kpis (execute): 15:32:13.014157 => 15:32:15.663011
+[0m15:32:15.663710 [debug] [Thread-3 (]: On model.dbt_taxiops.hourly_kpis: Close
+[0m15:32:15.751087 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '392876c7-75f1-46d0-bb1c-06136e9856d1', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275a7abcb90>]}
+[0m15:32:15.751877 [info ] [Thread-3 (]: 2 of 4 OK created sql table model PUBLIC_GOLD.hourly_kpis ...................... [[32mSUCCESS 1[0m in 2.76s]
+[0m15:32:15.752509 [debug] [Thread-3 (]: Finished running node model.dbt_taxiops.hourly_kpis
+[0m15:32:15.756767 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m15:32:15.757328 [debug] [MainThread]: Connection 'model.dbt_taxiops.stg_taxi_trips_silver' was properly closed.
+[0m15:32:15.757666 [debug] [MainThread]: Connection 'model.dbt_taxiops.vendor_kpis' was properly closed.
+[0m15:32:15.758126 [debug] [MainThread]: Connection 'model.dbt_taxiops.hourly_kpis' was properly closed.
+[0m15:32:15.758491 [debug] [MainThread]: Connection 'model.dbt_taxiops.payment_kpis' was properly closed.
+[0m15:32:15.759025 [info ] [MainThread]: 
+[0m15:32:15.759728 [info ] [MainThread]: Finished running 1 view model, 3 table models in 0 hours 0 minutes and 17.66 seconds (17.66s).
+[0m15:32:15.761162 [debug] [MainThread]: Command end result
+[0m15:32:15.777353 [info ] [MainThread]: 
+[0m15:32:15.778238 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m15:32:15.778848 [info ] [MainThread]: 
+[0m15:32:15.779562 [info ] [MainThread]: Done. PASS=4 WARN=0 ERROR=0 SKIP=0 TOTAL=4
+[0m15:32:15.781593 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": true, "command_wall_clock_time": 21.769144, "process_user_time": 5.207046, "process_kernel_time": 2.256912, "process_mem_max_rss": "168324", "process_in_blocks": "102840", "process_out_blocks": "2920"}
+[0m15:32:15.782530 [debug] [MainThread]: Command `dbt run` succeeded at 15:32:15.782317 after 21.77 seconds
+[0m15:32:15.783192 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275dfb3cd40>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275df797800>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7275e26858b0>]}
+[0m15:32:15.783760 [debug] [MainThread]: Flushing usage events

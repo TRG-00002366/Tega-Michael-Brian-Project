@@ -2,7 +2,8 @@ import os
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, to_timestamp
 
-DATA_DIR = os.getenv("DATA_DIR", "/opt/airflow/data")
+
+DATA_DIR = os.getenv("DATA_DIR", os.path.abspath("data"))
 BRONZE_PATH = os.path.join(DATA_DIR, "bronze")
 SILVER_PATH = os.path.join(DATA_DIR, "silver")
 
