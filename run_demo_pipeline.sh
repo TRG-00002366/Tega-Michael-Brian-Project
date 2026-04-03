@@ -10,6 +10,7 @@ KAFKA_CONTAINER="tega-michael-brian-project-kafka-1"
 TOPIC="nyc_taxi_trips"
 
 BRONZE_DIR="$PROJECT_ROOT/data/bronze"
+SILVER_DIR="$PROJECT_ROOT/data/silver"
 CHECKPOINT_DIR="$PROJECT_ROOT/data/checkpoints"
 BRONZE_CHECKPOINT_DIR="$CHECKPOINT_DIR/bronze"
 
@@ -21,7 +22,19 @@ SNOWSQL_CONNECTION="dev"
 # Producer config
 PRODUCER_CMD="python3 src/producer/faker_producer.py --num-events 100 --sleep-seconds 0.05"
 
+# dbt model selection
+DBT_MODELS=(
+  stg_taxi_trips_silver
+  dim_date
+  dim_payment_type
+  dim_vendor
+  hourly_kpis
+  payment_kpis
+  vendor_kpis
+  airport_kpis
+)
 
+# -----------------------------
 # Helpers
 # -----------------------------
 log() {
@@ -45,21 +58,21 @@ require_command() {
 
 check_container_running() {
   if ! docker ps --format '{{.Names}}' | grep -Fxq "$KAFKA_CONTAINER"; then
-    echo "ERROR: Kafka container not running."
+    echo "ERROR: Kafka container '$KAFKA_CONTAINER' is not running."
     exit 1
   fi
 }
 
-
+# -----------------------------
 # Stages
 # -----------------------------
 stage_reset() {
   log "Stage 1: Reset local data + Kafka topic"
 
-  rm -rf "$BRONZE_DIR" "$CHECKPOINT_DIR"
-  mkdir -p "$BRONZE_DIR" "$BRONZE_CHECKPOINT_DIR"
+  rm -rf "$BRONZE_DIR" "$SILVER_DIR" "$CHECKPOINT_DIR"
+  mkdir -p "$BRONZE_DIR" "$SILVER_DIR" "$BRONZE_CHECKPOINT_DIR"
 
-  echo "Reset local storage"
+  echo "Reset local bronze, silver, and checkpoint storage"
 
   set +e
   docker exec "$KAFKA_CONTAINER" kafka-topics \
@@ -75,6 +88,8 @@ stage_reset() {
     --topic "$TOPIC" \
     --partitions 1 \
     --replication-factor 1
+
+  echo "Kafka topic reset complete"
 }
 
 stage_produce() {
@@ -106,6 +121,10 @@ stage_silver() {
   log "Stage 4: Silver transformation"
 
   spark-submit src/streaming/silver_transform.py
+
+  echo
+  echo "Silver files created:"
+  find "$SILVER_DIR" -maxdepth 3 -type f
 }
 
 stage_snowflake() {
@@ -116,13 +135,15 @@ stage_snowflake() {
 }
 
 stage_dbt() {
-  log "Stage 6: Build KPI marts with dbt"
+  log "Stage 6: Build dimensions and KPI marts with dbt"
 
-  cd dbt_taxiops
-  dbt run --select stg_taxi_trips_silver hourly_kpis payment_kpis vendor_kpis
+  (
+    cd "$PROJECT_ROOT/dbt_taxiops"
+    dbt run --select "${DBT_MODELS[@]}"
+  )
 }
 
-
+# -----------------------------
 # Main
 # -----------------------------
 main() {
@@ -143,7 +164,7 @@ main() {
   echo "3. Bronze ingestion"
   echo "4. Silver transform"
   echo "5. Snowflake load"
-  echo "6. dbt KPIs"
+  echo "6. dbt dimensions + KPI marts"
   pause_step
 
   stage_reset
